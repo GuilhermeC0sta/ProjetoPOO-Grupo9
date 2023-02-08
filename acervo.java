@@ -1,8 +1,6 @@
-import java.util.List;
 import java.util.ArrayList;
-import java.util.Scanner;
 
-public class Acervo{ //ADICIONAR ou REMOVER livros do acervo;
+public class acervo{ //ADICIONAR ou REMOVER livros do acervo;
     ArrayList<livro> estante = new ArrayList<>();
 
     public void addLivro (livro lll){
