@@ -6,6 +6,9 @@ public class teste_conta { // 5, 6, 8, 9, 10
         ArrayList<conta> inf = new ArrayList<>();
         ArrayList<livro> estante = new ArrayList<>();
 
+        ArrayList<Integer> id_user = new ArrayList<>();
+        ArrayList<Integer> isbn_locado = new ArrayList<>();
+
         Scanner sc = new Scanner(System.in);
         String nome, email, senha, titulo, autor, controle;
 
@@ -15,9 +18,9 @@ public class teste_conta { // 5, 6, 8, 9, 10
 
         inf.add(new conta(email_b, senha_b, nome_b, 0));
 
-        int isbn, qnt_disp, isbnlocar, k;
-        int op = 0, id = 1;
-        int index_user = 0;
+        int isbn, qnt_disp, isbnlocar, k, isbndevolver;
+        int op = 0, id = 1, j;
+        int index_user = 0, tam;
 
         String log = "w";
 
@@ -55,9 +58,10 @@ public class teste_conta { // 5, 6, 8, 9, 10
                         }
                     }
 
-                    else {
+                    if (k == inf.size() - 1) {
                         System.out.println("Email não cadastrado");
                     }
+
                 }
             }
 
@@ -78,7 +82,7 @@ public class teste_conta { // 5, 6, 8, 9, 10
 
         while (op != -1) {
             System.out.println(
-                    "Digite 1 para editar perfil\nDigite 2 para adicionar um livro\nDigite 3 para verificar livros disponíveis\nDigite 4 para exibir todas as contas\nDigite 5 para locar um livro do acervo\nDigite 6 para remover um livro do acervo\nDigite -1 para sair\n");
+                    "Digite 1 para editar perfil\nDigite 2 para adicionar um livro\nDigite 3 para verificar livros disponíveis\nDigite 4 para exibir todas as contas\nDigite 5 para locar um livro do acervo\nDigite 6 para remover um livro do acervo\nDigite 7 para devolver um livro\nDigite -1 para sair\n");
             op = sc.nextInt();
 
             switch (op) {
@@ -126,38 +130,74 @@ public class teste_conta { // 5, 6, 8, 9, 10
                     break;
 
                 case 5:
-                    for (int i = 0; i < inf.size(); i++) {
-                        System.out.println("Digite o código ISBN do livro que deseja locar: ");
-                        isbnlocar = sc.nextInt();
-                        int tam = estante.size();
-                        for (k = 0; k < tam; k++) {
-                            if (isbnlocar == estante.get(k).isbn) {
-                                if (estante.get(k).qnt_disp == 0) {
-                                    System.out.println("Livro indisponível, Tente novamente em outro momento.");
-                                    break;
-                                } else {
-                                    estante.set(k, new livro(estante.get(k).titulo, estante.get(k).autor, isbnlocar,
-                                            estante.get(k).qnt_disp - 1));
+                    System.out.println("Digite o código ISBN do livro que deseja locar: ");
+                    isbnlocar = sc.nextInt();
+                    tam = estante.size();
+                    for (k = 0; k < tam; k++) {
+                        if (isbnlocar == estante.get(k).isbn) {
+                            if (estante.get(k).qnt_disp == 0) {
+                                System.out.println("Livro indisponível, Tente novamente em outro momento.");
+                                break;
+                            } else {
+                                estante.set(k, new livro(estante.get(k).titulo, estante.get(k).autor, isbnlocar,
+                                        estante.get(k).qnt_disp - 1));
 
-                                    System.out
-                                            .println("\nVocê conseguiu alocar um livro! Devolva dentro de 10 dias.\n");
-                                    break;
-                                }
+                                System.out
+                                        .println("\nVocê conseguiu locar um livro! Devolva dentro de 10 dias.\n");
+
+                                id_user.add(index_user);
+                                isbn_locado.add(isbnlocar);
+                                break;
                             }
                         }
                     }
-                    break;
+                    break; // 12/02/2023 b = 12; 20/02/2023 c = 20;
 
                 case 6:
                     System.out.println("Digite o código ISBN do livro que deseja remover do acervo: ");
                     isbnlocar = sc.nextInt();
-                    int tam = estante.size();
+                    tam = estante.size();
                     for (k = 0; k < tam; k++) {
                         if (isbnlocar == estante.get(k).isbn) {
                             estante.remove(k);
                         }
                     }
                     break;
+
+                case 7:
+                    System.out.println("Livros locados: ");
+                    for (k = 0; k < id_user.size(); k++) {
+                        if (id_user.get(k) == index_user) {
+                            System.out.println(isbn_locado.get(k));
+                            System.out.println("Escolha o livro que deseja devolver de acordo com o ISBN: ");
+                            isbndevolver = sc.nextInt();
+                            isbn_locado.remove(k);
+                            id_user.remove(k);
+
+                            for (j = 0; j < estante.size(); j++) {
+                                if (isbndevolver == estante.get(j).isbn) {
+                                    if (estante.get(j).qnt_disp == 0) {
+                                        System.out.println("Livro indisponível, Tente novamente em outro momento.");
+                                        break;
+                                    } else {
+                                        estante.set(j,
+                                                new livro(estante.get(j).titulo, estante.get(j).autor, isbndevolver,
+                                                        estante.get(j).qnt_disp + 1));
+
+                                        System.out
+                                                .println(
+                                                        "\nVocê conseguiu locar um livro! Devolva dentro de 10 dias.\n");
+
+                                        id_user.add(index_user);
+                                        isbn_locado.add(isbndevolver);
+                                        break;
+                                    }
+                                }
+                            }
+
+                        }
+                    }
+
             }
         }
     }
