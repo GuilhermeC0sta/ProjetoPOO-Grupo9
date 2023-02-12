@@ -88,6 +88,7 @@ public class teste_conta { // 5, 6, 8, 9, 10
                 }
                 else{
                     System.out.println("Opcao incorreta! Digite apenas S/s ou N/n");
+                    System.out.println();
                 }
             }
 
