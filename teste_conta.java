@@ -18,9 +18,10 @@ public class teste_conta { // 5, 6, 8, 9, 10
 
         ArrayList<Integer> id_devolvido = new ArrayList<>();
         ArrayList<Integer> isbn_devolvido = new ArrayList<>();
+        ArrayList<Integer> id_multa = new ArrayList<>();
 
         Scanner sc = new Scanner(System.in);
-        String nome, email, senha, titulo, autor, controle;
+        String nome, email, senha, titulo, autor, controle, dev;
 
         String nome_b = "biblioteca";
         String email_b = "biblioteca123@gmail.com";
@@ -29,7 +30,7 @@ public class teste_conta { // 5, 6, 8, 9, 10
         inf.add(new conta(email_b, senha_b, nome_b, 0));
 
         int isbn, qnt_disp, isbnlocar, k, isbndevolver;
-        int op = 0, id = 1, j = 0, sinal = 0;
+        int op = 0, id = 1, j = 0;
         int index_user = 0, tam;
 
         String log = "n";
@@ -97,7 +98,7 @@ public class teste_conta { // 5, 6, 8, 9, 10
             while (log == "s") {
                 System.out.println();
                 System.out.println(
-                        "[1] para editar perfil\n[2] para adicionar um livro\n[3] para verificar livros disponíveis\n[4] para exibir todas as contas\n[5] para locar um livro do acervo\n[6] para remover um livro do acervo\n[7] para devolver um livro\n[8] para ver quais livros vc tem locados\n[9] para deslogar\n[10] para sair\n[11] para ver quais livros foram devolvidos e por quem\n");
+                        "[1] para editar perfil\n[2] para adicionar um livro\n[3] para verificar livros disponíveis\n[4] para exibir todas as contas\n[5] para locar um livro do acervo\n[6] para remover um livro do acervo\n[7] para devolver um livro\n[8] para ver quais livros vc tem locados\n[9] para deslogar\n[10] para sair\n[11] para ver quais livros foram devolvidos e por quem\n[12] para verificar multas\n");
                 op = sc.nextInt();
                 tab();
                 switch (op) {
@@ -113,21 +114,25 @@ public class teste_conta { // 5, 6, 8, 9, 10
 
                     case 2:
 
-                        System.out.println("Digite o titulo:");
-                        sc.nextLine();
-                        titulo = sc.nextLine();
+                        if (index_user == 0) {
+                            System.out.println("Digite o titulo:");
+                            sc.nextLine();
+                            titulo = sc.nextLine();
 
-                        System.out.println("Digite o autor:");
+                            System.out.println("Digite o autor:");
 
-                        autor = sc.nextLine();
+                            autor = sc.nextLine();
 
-                        System.out.println("Digite o codigo ISBN:");
-                        isbn = sc.nextInt();
+                            System.out.println("Digite o codigo ISBN:");
+                            isbn = sc.nextInt();
 
-                        System.out.println("Digite a quantidade disponíveis:");
-                        qnt_disp = sc.nextInt();
+                            System.out.println("Digite a quantidade disponíveis:");
+                            qnt_disp = sc.nextInt();
 
-                        estante.add(new livro(titulo, autor, isbn, qnt_disp));
+                            estante.add(new livro(titulo, autor, isbn, qnt_disp));
+                        } else {
+                            System.out.println("Somente adminstradores podem usar esta função");
+                        }
                         break;
 
                     case 3:
@@ -170,14 +175,19 @@ public class teste_conta { // 5, 6, 8, 9, 10
                         break; // 12/02/2023 b = 12; 20/02/2023 c = 20;
 
                     case 6:
-                        System.out.println("Digite o código ISBN do livro que deseja remover do acervo: ");
-                        isbnlocar = sc.nextInt();
-                        tam = estante.size();
-                        for (k = 0; k < tam; k++) {
-                            if (isbnlocar == estante.get(k).isbn) {
-                                estante.remove(k);
+                        if (index_user == 0) {
+                            System.out.println("Digite o código ISBN do livro que deseja remover do acervo: ");
+                            isbnlocar = sc.nextInt();
+                            tam = estante.size();
+                            for (k = 0; k < tam; k++) {
+                                if (isbnlocar == estante.get(k).isbn) {
+                                    estante.remove(k);
+                                }
                             }
+                        } else {
+                            System.out.println("Somente adminstradores podem usar esta função");
                         }
+
                         break;
 
                     case 7:
@@ -232,10 +242,11 @@ public class teste_conta { // 5, 6, 8, 9, 10
                                 System.out.println(isbn_locado.get(k));
                             }
                         }
+                        break;
 
                     case 9:
-                        // log = "n";
-                        // controle = "n";
+                        log = "n";
+                        controle = "n";
                         System.out.println("Usuario deslogado!");
                         sc.nextLine();
                         break;
@@ -246,25 +257,42 @@ public class teste_conta { // 5, 6, 8, 9, 10
                         break;
 
                     case 11:
-                        for (j = 0; j < id_devolvido.size(); j++) {
-                            System.out.println("O usuario de id " + id_devolvido.get(j) + " devolveu o livro "
-                                    + isbn_devolvido.get(j));
-                            System.out.println("Se este livro foi devolvido digite SIM, caso contrario, digite NAO");
-                            String dev = sc.nextLine();
-                            if (dev.equalsIgnoreCase("SIM")) {
-                                id_devolvido.remove(j);
-                                isbn_devolvido.remove(j);
-                            } else if (dev.equalsIgnoreCase("NAO")) {
-                                System.out.println(
-                                        "Aplicar multa? digite SIM para aplicar multa caso tenha passado o prazo, digite NAO, caso nao tenha passado o prazo");
-                                String multinha = sc.nextLine();
-                                if (multinha.equalsIgnoreCase("SIM")) {
-                                    System.out.println("MULTA APLICADA!");
-                                } else if (multinha.equalsIgnoreCase("NAO")) {
-                                    System.out.println("MULTA NÃO APLICADA!");
+                        if (index_user == 0) {
+                            for (j = 0; j < id_devolvido.size(); j++) {
+                                System.out.println("O usuario de id " + id_devolvido.get(j) + " devolveu o livro "
+                                        + isbn_devolvido.get(j));
+                                System.out.println("Se este livro foi devolvido digite S, caso contrario, digite N");
+                                dev = sc.nextLine();
+                                if (dev.equalsIgnoreCase("S")) {
+                                    id_devolvido.remove(j);
+                                    isbn_devolvido.remove(j);
+                                } else if (dev.equalsIgnoreCase("N")) {
+                                    System.out.println(
+                                            "Aplicar multa? digite S para aplicar multa caso tenha passado o prazo, digite N, caso nao tenha passado o prazo");
+                                    String multinha = sc.nextLine();
+                                    if (multinha.equalsIgnoreCase("S")) {
+                                        System.out.println("MULTA APLICADA!");
+                                        // id_multa.add(index_user); seria id_user ?
+                                    } else if (multinha.equalsIgnoreCase("N")) {
+                                        System.out.println("MULTA NÃO APLICADA!");
+                                    }
                                 }
                             }
+                        } else {
+                            System.out.println("Somente adminstradores podem usar esta função");
                         }
+                        break;
+
+                    case 12:
+
+                        /*
+                         * for (j = 0; j < id_multa.size(); j++) {
+                         * if (id_multa.get(j) == index_user) {
+                         * System.out.println("Você possui uma multa!");
+                         * }
+                         * }
+                         */
+
                         break;
 
                     default:
