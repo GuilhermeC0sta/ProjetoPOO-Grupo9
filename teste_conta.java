@@ -272,7 +272,7 @@ public class teste_conta { // 5, 6, 8, 9, 10
                                     String multinha = sc.nextLine();
                                     if (multinha.equalsIgnoreCase("S")) {
                                         System.out.println("MULTA APLICADA!");
-                                        id_multa.add(index_user);
+                                        // id_multa.add(index_user); seria id_user ?
                                     } else if (multinha.equalsIgnoreCase("N")) {
                                         System.out.println("MULTA NÃO APLICADA!");
                                     }
@@ -285,11 +285,13 @@ public class teste_conta { // 5, 6, 8, 9, 10
 
                     case 12:
 
-                        for (j = 0; j < id_multa.size(); j++) {
-                            if (id_multa.get(j) == index_user) {
-                                System.out.println("Você possui uma multa!");
-                            }
-                        }
+                        /*
+                         * for (j = 0; j < id_multa.size(); j++) {
+                         * if (id_multa.get(j) == index_user) {
+                         * System.out.println("Você possui uma multa!");
+                         * }
+                         * }
+                         */
 
                         break;
 
