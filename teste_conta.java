@@ -66,6 +66,21 @@ public class teste_conta { // 5, 6, 8, 9, 10
                                         index_user = k;
                                         break;
                                     }
+                                    else{
+                                        System.out.println("Se esqueceu sua senha, e deseja parar o processo de login, digite SAIR, caso contrário digite CONTINUAR!");
+                                        senha = sc.nextLine();
+                                        if (senha.equalsIgnoreCase("SAIR")) { // aqui está logado
+                                            System.out.println("Você saiu da tentativa de login!\n");
+                                            break;
+                                        }
+                                        else if (senha.equalsIgnoreCase("CONTINUAR")) { // aqui está logado
+                                        }
+                                        else{
+                                            System.out.println("Opção inválida, encerrando processo de login...\n");
+                                            System.out.println("Processo de Login encerrado!\n");
+                                            break;
+                                        }
+                                    }
                                 }
                             }
                         }
@@ -99,7 +114,7 @@ public class teste_conta { // 5, 6, 8, 9, 10
             while (log == "s") {
                 System.out.println();
                 System.out.println(
-                        "[1] para editar perfil\n[2] para adicionar um livro\n[3] para verificar livros disponíveis\n[4] para exibir todas as contas\n[5] para locar um livro do acervo\n[6] para remover um livro do acervo\n[7] para devolver um livro\n[8] para ver quais livros vc tem locados\n[9] para deslogar\n[10] para sair\n[11] para ver quais livros foram devolvidos e por quem\n[12] para verificar multas\n[13] para verificar multas pagas pelos usuários\n");
+                        "[1] para editar perfil\n[2] (ADMIN) para adicionar um livro\n[3] para verificar livros disponíveis\n[4] (ADMIN) para exibir todas as contas\n[5] para locar um livro do acervo\n[6] (ADMIN) para remover um livro do acervo\n[7] para devolver um livro\n[8] para ver quais livros vc tem locados\n[9] para deslogar\n[10] para sair\n[11] (ADMIN) para ver quais livros foram devolvidos e por quem\n[12] para verificar multas\n[13] (ADMIN) para verificar multas pagas pelos usuários\n");
                 op = sc.nextInt();
                 tab();
                 switch (op) {
@@ -289,12 +304,16 @@ public class teste_conta { // 5, 6, 8, 9, 10
                         for (j = 0; j < id_multa.size(); j++) {
                             if (id_multa.get(j) == index_user) {
                                 System.out.println("Você possui uma multa!");
-                                System.out.println("Deseja pagá-la agora?");
+                                System.out.println("Deseja pagá-la agora? se SIM digite S, caso contrário, digite outra N");
                                 sc.nextLine();
                                 String resp = sc.nextLine();
                                 if(resp.equalsIgnoreCase("S")){
                                     System.out.println("Dirija-se para o caixa para realizar o pagamento!");
                                     id_multapaga.add(index_user);
+                                }
+                                else if(resp.equalsIgnoreCase("N")){
+                                    System.out.println("Realize o pagamento dentro do prazo ou então será aplicado juros à multa!");
+                                    break;
                                 }
                             }
                         }
