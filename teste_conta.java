@@ -331,6 +331,9 @@ public class teste_conta { // 5, 6, 8, 9, 10
                                 }
                             }
                         }
+                        else {
+                            System.out.println("Somente adminstradores podem usar esta função");
+                        }
                         break;
 
                     default:
