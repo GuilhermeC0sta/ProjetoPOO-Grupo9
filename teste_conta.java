@@ -19,6 +19,7 @@ public class teste_conta { // 5, 6, 8, 9, 10
         ArrayList<Integer> id_devolvido = new ArrayList<>();
         ArrayList<Integer> isbn_devolvido = new ArrayList<>();
         ArrayList<Integer> id_multa = new ArrayList<>();
+        ArrayList<Integer> id_multapaga = new ArrayList<>();
 
         Scanner sc = new Scanner(System.in);
         String nome, email, senha, titulo, autor, controle, dev;
@@ -98,7 +99,7 @@ public class teste_conta { // 5, 6, 8, 9, 10
             while (log == "s") {
                 System.out.println();
                 System.out.println(
-                        "[1] para editar perfil\n[2] para adicionar um livro\n[3] para verificar livros disponíveis\n[4] para exibir todas as contas\n[5] para locar um livro do acervo\n[6] para remover um livro do acervo\n[7] para devolver um livro\n[8] para ver quais livros vc tem locados\n[9] para deslogar\n[10] para sair\n[11] para ver quais livros foram devolvidos e por quem\n[12] para verificar multas\n");
+                        "[1] para editar perfil\n[2] para adicionar um livro\n[3] para verificar livros disponíveis\n[4] para exibir todas as contas\n[5] para locar um livro do acervo\n[6] para remover um livro do acervo\n[7] para devolver um livro\n[8] para ver quais livros vc tem locados\n[9] para deslogar\n[10] para sair\n[11] para ver quais livros foram devolvidos e por quem\n[12] para verificar multas\n[13] para verificar multas pagas pelos usuários\n");
                 op = sc.nextInt();
                 tab();
                 switch (op) {
@@ -262,6 +263,7 @@ public class teste_conta { // 5, 6, 8, 9, 10
                                 System.out.println("O usuario de id " + id_devolvido.get(j) + " devolveu o livro "
                                         + isbn_devolvido.get(j));
                                 System.out.println("Se este livro foi devolvido digite S, caso contrario, digite N");
+                                sc.nextLine();
                                 dev = sc.nextLine();
                                 if (dev.equalsIgnoreCase("S")) {
                                     id_devolvido.remove(j);
@@ -272,7 +274,7 @@ public class teste_conta { // 5, 6, 8, 9, 10
                                     String multinha = sc.nextLine();
                                     if (multinha.equalsIgnoreCase("S")) {
                                         System.out.println("MULTA APLICADA!");
-                                        // id_multa.add(index_user); seria id_user ?
+                                        id_multa.add(id_devolvido.get(j));
                                     } else if (multinha.equalsIgnoreCase("N")) {
                                         System.out.println("MULTA NÃO APLICADA!");
                                     }
@@ -284,19 +286,37 @@ public class teste_conta { // 5, 6, 8, 9, 10
                         break;
 
                     case 12:
+                        for (j = 0; j < id_multa.size(); j++) {
+                            if (id_multa.get(j) == index_user) {
+                                System.out.println("Você possui uma multa!");
+                                System.out.println("Deseja pagá-la agora?");
+                                sc.nextLine();
+                                String resp = sc.nextLine();
+                                if(resp.equalsIgnoreCase("S")){
+                                    System.out.println("Dirija-se para o caixa para realizar o pagamento!");
+                                    id_multapaga.add(index_user);
+                                }
+                            }
+                        }
+                        break;
 
-                        /*
-                         * for (j = 0; j < id_multa.size(); j++) {
-                         * if (id_multa.get(j) == index_user) {
-                         * System.out.println("Você possui uma multa!");
-                         * }
-                         * }
-                         */
-
+                    case 13:
+                        if (index_user == 0) {
+                            for (j = 0; j < id_multapaga.size(); j++) { 
+                                System.out.println("O usuário de id "+id_multapaga.get(j) +" pagou a multa, confirma?");
+                                sc.nextLine();
+                                String resposta = sc.nextLine();
+                                if(resposta.equalsIgnoreCase("S")){
+                                    System.out.println("Confirmado que o usuário de id " +id_multapaga.get(j) +" pagou a multa!");
+                                    id_multapaga.remove(j);
+                                }
+                            }
+                        }
                         break;
 
                     default:
                         System.out.println("Opcao incorreta!");
+                            
 
                 }
             }
