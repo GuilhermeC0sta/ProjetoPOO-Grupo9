@@ -65,17 +65,15 @@ public class teste_conta { // 5, 6, 8, 9, 10
                                         log = "s";
                                         index_user = k;
                                         break;
-                                    }
-                                    else{
-                                        System.out.println("Se esqueceu sua senha, e deseja parar o processo de login, digite SAIR, caso contrário digite CONTINUAR!");
+                                    } else {
+                                        System.out.println(
+                                                "Se esqueceu sua senha, e deseja parar o processo de login, digite SAIR, caso contrário digite CONTINUAR!");
                                         senha = sc.nextLine();
                                         if (senha.equalsIgnoreCase("SAIR")) { // aqui está logado
                                             System.out.println("Você saiu da tentativa de login!\n");
                                             break;
-                                        }
-                                        else if (senha.equalsIgnoreCase("CONTINUAR")) { // aqui está logado
-                                        }
-                                        else{
+                                        } else if (senha.equalsIgnoreCase("CONTINUAR")) { // aqui está logado
+                                        } else {
                                             System.out.println("Opção inválida, encerrando processo de login...\n");
                                             System.out.println("Processo de Login encerrado!\n");
                                             break;
@@ -131,32 +129,19 @@ public class teste_conta { // 5, 6, 8, 9, 10
                     case 2:
 
                         if (index_user == 0) {
-                            System.out.println("Digite o titulo:");
-                            sc.nextLine();
-                            titulo = sc.nextLine();
-
-                            System.out.println("Digite o autor:");
-
-                            autor = sc.nextLine();
-
-                            System.out.println("Digite o codigo ISBN:");
-                            isbn = sc.nextInt();
-
-                            System.out.println("Digite a quantidade disponíveis:");
-                            qnt_disp = sc.nextInt();
-
-                            estante.add(new livro(titulo, autor, isbn, qnt_disp));
+                            livro.add_livro();
                         } else {
                             System.out.println("Somente adminstradores podem usar esta função");
                         }
                         break;
 
                     case 3:
-                        for (int i = 0; i < estante.size(); i++) {
+                        for (int i = 0; i < livro.estante.size(); i++) {
                             System.out.println(
-                                    "Titulo: " + estante.get(i).titulo + " - " + "Autor: " + estante.get(i).autor
-                                            + " Código ISBN: " + estante.get(i).isbn + " Quantidade disponível: "
-                                            + estante.get(i).qnt_disp);
+                                    "Titulo: " + livro.estante.get(i).titulo + " - " + "Autor: "
+                                            + livro.estante.get(i).autor
+                                            + " Código ISBN: " + livro.estante.get(i).isbn + " Quantidade disponível: "
+                                            + livro.estante.get(i).qnt_disp);
                         }
                         break;
 
@@ -169,15 +154,17 @@ public class teste_conta { // 5, 6, 8, 9, 10
                     case 5:
                         System.out.println("Digite o código ISBN do livro que deseja locar: ");
                         isbnlocar = sc.nextInt();
-                        tam = estante.size();
+                        tam = livro.estante.size();
                         for (k = 0; k < tam; k++) {
-                            if (isbnlocar == estante.get(k).isbn) {
-                                if (estante.get(k).qnt_disp == 0) {
+                            if (isbnlocar == livro.estante.get(k).isbn) {
+                                if (livro.estante.get(k).qnt_disp == 0) {
                                     System.out.println("Livro indisponível, Tente novamente em outro momento.");
                                     break;
                                 } else {
-                                    estante.set(k, new livro(estante.get(k).titulo, estante.get(k).autor, isbnlocar,
-                                            estante.get(k).qnt_disp - 1));
+                                    livro.estante.set(k,
+                                            new livro(livro.estante.get(k).titulo, livro.estante.get(k).autor,
+                                                    isbnlocar,
+                                                    livro.estante.get(k).qnt_disp - 1));
 
                                     System.out
                                             .println("\nVocê conseguiu locar um livro! Devolva dentro de 10 dias.\n");
@@ -304,15 +291,16 @@ public class teste_conta { // 5, 6, 8, 9, 10
                         for (j = 0; j < id_multa.size(); j++) {
                             if (id_multa.get(j) == index_user) {
                                 System.out.println("Você possui uma multa!");
-                                System.out.println("Deseja pagá-la agora? se SIM digite S, caso contrário, digite outra N");
+                                System.out.println(
+                                        "Deseja pagá-la agora? se SIM digite S, caso contrário, digite outra N");
                                 sc.nextLine();
                                 String resp = sc.nextLine();
-                                if(resp.equalsIgnoreCase("S")){
+                                if (resp.equalsIgnoreCase("S")) {
                                     System.out.println("Dirija-se para o caixa para realizar o pagamento!");
                                     id_multapaga.add(index_user);
-                                }
-                                else if(resp.equalsIgnoreCase("N")){
-                                    System.out.println("Realize o pagamento dentro do prazo ou então será aplicado juros à multa!");
+                                } else if (resp.equalsIgnoreCase("N")) {
+                                    System.out.println(
+                                            "Realize o pagamento dentro do prazo ou então será aplicado juros à multa!");
                                     break;
                                 }
                             }
@@ -321,24 +309,24 @@ public class teste_conta { // 5, 6, 8, 9, 10
 
                     case 13:
                         if (index_user == 0) {
-                            for (j = 0; j < id_multapaga.size(); j++) { 
-                                System.out.println("O usuário de id "+id_multapaga.get(j) +" pagou a multa, confirma?");
+                            for (j = 0; j < id_multapaga.size(); j++) {
+                                System.out.println(
+                                        "O usuário de id " + id_multapaga.get(j) + " pagou a multa, confirma?");
                                 sc.nextLine();
                                 String resposta = sc.nextLine();
-                                if(resposta.equalsIgnoreCase("S")){
-                                    System.out.println("Confirmado que o usuário de id " +id_multapaga.get(j) +" pagou a multa!");
+                                if (resposta.equalsIgnoreCase("S")) {
+                                    System.out.println("Confirmado que o usuário de id " + id_multapaga.get(j)
+                                            + " pagou a multa!");
                                     id_multapaga.remove(j);
                                 }
                             }
-                        }
-                        else {
+                        } else {
                             System.out.println("Somente adminstradores podem usar esta função");
                         }
                         break;
 
                     default:
                         System.out.println("Opcao incorreta!");
-                            
 
                 }
             }
