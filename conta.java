@@ -1,8 +1,5 @@
-import java.util.*;
-
 public class conta {
 
-    ArrayList<Integer> cdb = new ArrayList<>();
     public String email, senha, nome, log;
     public int id, index_user;
 
@@ -11,6 +8,5 @@ public class conta {
         this.senha = senha;
         this.nome = nome;
         this.id = id;
-        this.cdb = cdb;
     }
 }
