@@ -11,6 +11,5 @@ public class conta {
         this.senha = senha;
         this.nome = nome;
         this.id = id;
-        this.cdb = cdb;
     }
 }
