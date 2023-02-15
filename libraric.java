@@ -111,11 +111,11 @@ public class libraric { // 5, 6, 8, 9, 10
             while (log == "s") {
                 System.out.println();
                 System.out.println(
-                        "[1] para editar perfil\n[2] (ADMIN) para adicionar um livro\n[3] para verificar livros disponíveis\n[4] (ADMIN) para exibir todas as contas\n[5] para locar um livro do acervo\n[6] (ADMIN) para remover um livro do acervo\n[7] para devolver um livro\n[8] para ver quais livros vc tem locados\n[9] para deslogar\n[10] para sair\n[11] (ADMIN) para ver quais livros foram devolvidos e por quem\n[12] para verificar multas\n[13] (ADMIN) para verificar multas pagas pelos usuários\n");
+                        "[1] para editar perfil\n[2] (ADMIN) para adicionar um livro\n[3] para verificar livros disponíveis\n[4] (ADMIN) para remover um livro do acervo\n[5] para locar um livro do acervo\n[6] para devolver um livro ao acervo\n[7] para ver quais livros você locou\n[8] (ADMIN) para ver quais livros os usuários notificaram devolução\n[9] verificar se você possui multas pendentes\n[10] (ADMIN) confirmar pagamento de multas pelos usuários\n[11] (ADMIN) para verificar todas as contas cadastradas no Libraric\n[12] para deslogar do Libraric\n[13] para encerrar o programa\n");
                 op = sc.nextInt();
                 tab();
                 switch (op) {
-                    case 1:
+                    case 1: //EDITAR PERFIL
                         System.out.println("Digite o novo nome:");
                         sc.nextLine();
                         nome = sc.nextLine();
@@ -125,7 +125,7 @@ public class libraric { // 5, 6, 8, 9, 10
                         System.out.println("Nome e email alterados com sucesso!");
                         break;
 
-                    case 2:
+                    case 2: //ADICIONAR LIVRO AO ACERVO
 
                         if (index_user == 0) {
                             System.out.println("Digite o titulo:");
@@ -148,7 +148,7 @@ public class libraric { // 5, 6, 8, 9, 10
                         }
                         break;
 
-                    case 3:
+                    case 3: //VERIFICAR LIVROS DO ACERVO
                         for (int i = 0; i < estante.size(); i++) {
                             System.out.println(
                                     "Titulo: " + estante.get(i).titulo + " - " + "Autor: " + estante.get(i).autor
@@ -159,17 +159,23 @@ public class libraric { // 5, 6, 8, 9, 10
                         }
                         break;
 
-                    case 4:
+                    case 4: //REMOVER LIVRO DO ACERVO
                         if (index_user == 0) {
-                            for (int i = 0; i < inf.size(); i++) {
-                                System.out.println("Nome: " + inf.get(i).nome + " - " + "Email: " + inf.get(i).email);
+                            System.out.println("Digite o código ISBN do livro que deseja remover do acervo: ");
+                            isbnlocar = sc.nextInt();
+                            tam = estante.size();
+                            for (k = 0; k < tam; k++) {
+                                if (isbnlocar == estante.get(k).isbn) {
+                                    estante.remove(k);
+                                }
                             }
                         } else {
                             System.out.println("Somente adminstradores podem usar esta função");
                         }
+
                         break;
 
-                    case 5:
+                    case 5: //LOCAR LIVROS
                         System.out.println("Digite o código ISBN do livro que deseja locar: ");
                         isbnlocar = sc.nextInt();
                         tam = estante.size();
@@ -191,25 +197,9 @@ public class libraric { // 5, 6, 8, 9, 10
                                 }
                             }
                         }
-                        break; // 12/02/2023 b = 12; 20/02/2023 c = 20;
-
-                    case 6:
-                        if (index_user == 0) {
-                            System.out.println("Digite o código ISBN do livro que deseja remover do acervo: ");
-                            isbnlocar = sc.nextInt();
-                            tam = estante.size();
-                            for (k = 0; k < tam; k++) {
-                                if (isbnlocar == estante.get(k).isbn) {
-                                    estante.remove(k);
-                                }
-                            }
-                        } else {
-                            System.out.println("Somente adminstradores podem usar esta função");
-                        }
-
                         break;
 
-                    case 7:
+                    case 6: //DEVOLVER LIVROS
                         if (id_user.size() == 0) {
                             System.out.println("*NÃO HÁ LIVRO LOCADOS*");
                             break;
@@ -248,7 +238,7 @@ public class libraric { // 5, 6, 8, 9, 10
                         }
                         break;
 
-                    case 8:
+                    case 7: //VER LIVROS LOCADOS
                         if (id_user.size() == 0) {
                             System.out.println("*NÃO HÁ LIVRO LOCADOS*");
                             break;
@@ -261,20 +251,9 @@ public class libraric { // 5, 6, 8, 9, 10
                             }
                         }
                         break;
-
-                    case 9:
-                        log = "n";
-                        controle = "n";
-                        System.out.println("Usuario deslogado!");
-                        sc.nextLine();
-                        break;
-
-                    case 10:
-                        op = -1;
-                        log = "a";
-                        break;
-
-                    case 11:
+                        
+                    case 8: //VER LIVROS DEVOLVIDOS
+                        
                         if (index_user == 0) {
                             for (j = 0; j < id_devolvido.size(); j++) {
                                 System.out.println("O usuario de id " + id_devolvido.get(j) + " devolveu o livro "
@@ -302,7 +281,7 @@ public class libraric { // 5, 6, 8, 9, 10
                         }
                         break;
 
-                    case 12:
+                    case 9:
                         for (j = 0; j < id_multa.size(); j++) {
                             if (id_multa.get(j) == index_user) {
                                 System.out.println(
@@ -323,11 +302,11 @@ public class libraric { // 5, 6, 8, 9, 10
                         }
                         break;
 
-                    case 13:
+                    case 10:
                         if (index_user == 0) {
                             for (j = 0; j < id_multapaga.size(); j++) {
                                 System.out.println(
-                                        "O usuário de id " + id_multapaga.get(j) + " pagou a multa, confirma?");
+                                        "O usuário de id " + id_multapaga.get(j) + " pagou a multa, confirma? Digite S para sim ou N, caso contrário");
                                 sc.nextLine();
                                 String resposta = sc.nextLine();
                                 if (resposta.equalsIgnoreCase("S")) {
@@ -341,6 +320,28 @@ public class libraric { // 5, 6, 8, 9, 10
                         } else {
                             System.out.println("Somente adminstradores podem usar esta função");
                         }
+                        break;
+
+                    case 11:
+                        if (index_user == 0) {
+                            for (int i = 0; i < inf.size(); i++) {
+                                System.out.println("Nome: " + inf.get(i).nome + " - " + "Email: " + inf.get(i).email);
+                            }
+                        } else {
+                            System.out.println("Somente adminstradores podem usar esta função");
+                        }
+                        break;
+
+                    case 12:
+                        log = "n";
+                        controle = "n";
+                        System.out.println("Usuario deslogado!");
+                        sc.nextLine();
+                        break;
+
+                    case 13:
+                        op = -1;
+                        log = "a";
                         break;
 
                     default:
