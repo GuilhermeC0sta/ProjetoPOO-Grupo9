@@ -1,6 +1,6 @@
 import java.util.*;
 
-public class teste_conta { // 5, 6, 8, 9, 10
+public class libraric { // 5, 6, 8, 9, 10
     static void tab() {
         System.out.println();
         System.out.println();
