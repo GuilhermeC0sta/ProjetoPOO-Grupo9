@@ -151,15 +151,21 @@ public class libraric { // 5, 6, 8, 9, 10
                     case 3:
                         for (int i = 0; i < estante.size(); i++) {
                             System.out.println(
-                                    "Titulo: " + estante.get(i).titulo + " - " + "Autor: " + estante.get(i).autor + " - "
-                                            + " Código ISBN: " + estante.get(i).isbn + " - " + " Quantidade disponível: "
+                                    "Titulo: " + estante.get(i).titulo + " - " + "Autor: " + estante.get(i).autor
+                                            + " - "
+                                            + " Código ISBN: " + estante.get(i).isbn + " - "
+                                            + " Quantidade disponível: "
                                             + estante.get(i).qnt_disp);
                         }
                         break;
 
                     case 4:
-                        for (int i = 0; i < inf.size(); i++) {
-                            System.out.println("Nome: " + inf.get(i).nome + " - " + "Email: " + inf.get(i).email);
+                        if (index_user == 0) {
+                            for (int i = 0; i < inf.size(); i++) {
+                                System.out.println("Nome: " + inf.get(i).nome + " - " + "Email: " + inf.get(i).email);
+                            }
+                        } else {
+                            System.out.println("Somente adminstradores podem usar esta função");
                         }
                         break;
 
@@ -299,7 +305,8 @@ public class libraric { // 5, 6, 8, 9, 10
                     case 12:
                         for (j = 0; j < id_multa.size(); j++) {
                             if (id_multa.get(j) == index_user) {
-                                System.out.println("Você possui uma multa não paga! Realize o pagamento dentro do prazo ou então será aplicado juros à multa!");
+                                System.out.println(
+                                        "Você possui uma multa não paga! Realize o pagamento dentro do prazo ou então será aplicado juros à multa!");
                                 System.out.println(
                                         "Deseja pagá-la agora? se SIM digite S, caso contrário, digite outra N");
                                 sc.nextLine();
