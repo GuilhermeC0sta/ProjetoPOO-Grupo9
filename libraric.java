@@ -84,8 +84,7 @@ public class libraric { // 5, 6, 8, 9, 10
                         }
 
                         else if (k == inf.size() - 1) {
-                            System.out.println("Email errado ou não cadastrado ou senha incorreta!");
-                            sc.nextLine();
+                            System.out.println("Email errado ou não cadastrado ou senha incorreta!\n");
                         }
                     }
 
@@ -152,8 +151,8 @@ public class libraric { // 5, 6, 8, 9, 10
                     case 3:
                         for (int i = 0; i < estante.size(); i++) {
                             System.out.println(
-                                    "Titulo: " + estante.get(i).titulo + " - " + "Autor: " + estante.get(i).autor
-                                            + " Código ISBN: " + estante.get(i).isbn + " Quantidade disponível: "
+                                    "Titulo: " + estante.get(i).titulo + " - " + "Autor: " + estante.get(i).autor + " - "
+                                            + " Código ISBN: " + estante.get(i).isbn + " - " + " Quantidade disponível: "
                                             + estante.get(i).qnt_disp);
                         }
                         break;
@@ -171,7 +170,7 @@ public class libraric { // 5, 6, 8, 9, 10
                         for (k = 0; k < tam; k++) {
                             if (isbnlocar == estante.get(k).isbn) {
                                 if (estante.get(k).qnt_disp == 0) {
-                                    System.out.println("Livro indisponível, Tente novamente em outro momento.");
+                                    System.out.println("Livro indisponível, tente novamente em outro momento.");
                                     break;
                                 } else {
                                     estante.set(k, new livro(estante.get(k).titulo, estante.get(k).autor, isbnlocar,
@@ -217,7 +216,6 @@ public class libraric { // 5, 6, 8, 9, 10
                             }
                         }
                         System.out.println("Escolha o livro que deseja devolver de acordo com o ISBN: ");
-                        sc.nextLine();
                         isbndevolver = sc.nextInt();
                         for (j = 0; j < id_user.size(); j++) {
                             if (id_user.get(j) == index_user) {
@@ -226,7 +224,7 @@ public class libraric { // 5, 6, 8, 9, 10
                                     isbn_devolvido.add(j, isbndevolver);
                                     id_user.remove(j);
                                     isbn_locado.remove(j);
-                                    System.out.println("Livro " + isbndevolver + " devolvido! A libraric agradece!\n");
+                                    System.out.println("Livro " + isbndevolver + " devolvido! A Libraric agradece!\n");
                                     for (k = 0; k < estante.size(); k++) {
                                         if (isbndevolver == estante.get(k).isbn) {
                                             estante.set(k,
@@ -301,7 +299,7 @@ public class libraric { // 5, 6, 8, 9, 10
                     case 12:
                         for (j = 0; j < id_multa.size(); j++) {
                             if (id_multa.get(j) == index_user) {
-                                System.out.println("Você possui uma multa!");
+                                System.out.println("Você possui uma multa não paga! Realize o pagamento dentro do prazo ou então será aplicado juros à multa!");
                                 System.out.println(
                                         "Deseja pagá-la agora? se SIM digite S, caso contrário, digite outra N");
                                 sc.nextLine();
