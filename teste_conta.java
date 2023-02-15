@@ -129,19 +129,32 @@ public class teste_conta { // 5, 6, 8, 9, 10
                     case 2:
 
                         if (index_user == 0) {
-                            livro.add_livro();
+                            System.out.println("Digite o titulo:");
+                            sc.nextLine();
+                            titulo = sc.nextLine();
+
+                            System.out.println("Digite o autor:");
+
+                            autor = sc.nextLine();
+
+                            System.out.println("Digite o codigo ISBN:");
+                            isbn = sc.nextInt();
+
+                            System.out.println("Digite a quantidade disponíveis:");
+                            qnt_disp = sc.nextInt();
+
+                            estante.add(new livro(titulo, autor, isbn, qnt_disp));
                         } else {
                             System.out.println("Somente adminstradores podem usar esta função");
                         }
                         break;
 
                     case 3:
-                        for (int i = 0; i < livro.estante.size(); i++) {
+                        for (int i = 0; i < estante.size(); i++) {
                             System.out.println(
-                                    "Titulo: " + livro.estante.get(i).titulo + " - " + "Autor: "
-                                            + livro.estante.get(i).autor
-                                            + " Código ISBN: " + livro.estante.get(i).isbn + " Quantidade disponível: "
-                                            + livro.estante.get(i).qnt_disp);
+                                    "Titulo: " + estante.get(i).titulo + " - " + "Autor: " + estante.get(i).autor
+                                            + " Código ISBN: " + estante.get(i).isbn + " Quantidade disponível: "
+                                            + estante.get(i).qnt_disp);
                         }
                         break;
 
@@ -154,17 +167,15 @@ public class teste_conta { // 5, 6, 8, 9, 10
                     case 5:
                         System.out.println("Digite o código ISBN do livro que deseja locar: ");
                         isbnlocar = sc.nextInt();
-                        tam = livro.estante.size();
+                        tam = estante.size();
                         for (k = 0; k < tam; k++) {
-                            if (isbnlocar == livro.estante.get(k).isbn) {
-                                if (livro.estante.get(k).qnt_disp == 0) {
+                            if (isbnlocar == estante.get(k).isbn) {
+                                if (estante.get(k).qnt_disp == 0) {
                                     System.out.println("Livro indisponível, Tente novamente em outro momento.");
                                     break;
                                 } else {
-                                    livro.estante.set(k,
-                                            new livro(livro.estante.get(k).titulo, livro.estante.get(k).autor,
-                                                    isbnlocar,
-                                                    livro.estante.get(k).qnt_disp - 1));
+                                    estante.set(k, new livro(estante.get(k).titulo, estante.get(k).autor, isbnlocar,
+                                            estante.get(k).qnt_disp - 1));
 
                                     System.out
                                             .println("\nVocê conseguiu locar um livro! Devolva dentro de 10 dias.\n");
